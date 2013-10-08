@@ -1,0 +1,241 @@
+/* Fixes for bootstrap styles */
+
+.navbar-text {
+	margin-top: 16px;
+	margin-bottom: 15px;
+}
+
+.navbar-default .navbar-brand {
+	color: #333333;
+}
+
+.navbar-inverse .navbar-brand {
+	color: #ffffff;
+}
+
+.jumbotron .alert {
+	font-size: 17px;
+}
+
+.navbar-form {
+	margin-top: 7px;
+}
+
+.thumbnail > img {
+	width: 100%;
+}
+
+/* Custom styles */
+
+.meetup-body-guest {
+	border-top: 111px solid #f1f1f1;
+}
+
+.meetup-navbar-icons {
+	margin-top: 12px;
+	margin-bottom: 11px;
+	float: left;
+}
+
+.meetup-navbar-before-icons {
+	margin-right: 15px;
+}
+
+.meetup-jumbotron {
+	margin-bottom: 0;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.meetup-jumbotron h1 {
+	margin-top: 0;
+}
+
+.meetup-block {
+	margin-bottom: 24px;
+}
+
+.meetup-block-sm {
+	margin-bottom: 8px;
+}
+
+.meetup-block-last {
+	margin-bottom: 0;
+}
+
+.meetup-icon-left {
+	margin-right: 0.25em;
+}
+
+.meetup-icon-right {
+	margin-left: 0.25em;
+}
+
+.meetup-aspect-2-1 {
+	display: block;
+	width: 100%;
+	padding-top: 50%;
+}
+
+.meetup-events .thumbnail {
+	margin-bottom: 24px;
+}
+
+.meetup-events h4 {
+	height: 24px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.meetup-events-description {
+	height: 24px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.meetup-events-link {
+	margin-top: 12px;
+	margin-bottom: 12px;
+	height: 24px;
+	line-height: 31px;
+	text-align: center;
+}
+
+.meetup-events-buttons {
+	height: 43px;
+}
+
+.meetup-post {
+	padding: 10px;
+	margin-top: 5px;
+}
+
+.meetup-post-upcoming {
+	background-color: #f2dede;
+	border: 1px solid #eed3d7;
+	border-radius: 4px;
+}
+
+.meetup-post-thumbnail {
+	width: 64px;
+	height: 64px;
+}
+
+.meetup-post-title {
+	margin-bottom: 10px;
+}
+
+.meetup-post-title > a {
+	vertical-align: -3px;
+}
+
+.meetup-post-title > .label {
+	vertical-align: 0;
+}
+
+.meetup-post-title > .label span.glyphicon {
+	vertical-align: -2px;
+}
+
+.meetup-vote {
+	float: left;
+	margin-right: 0.75em;
+}
+
+.meetup-vote .form-control {
+	width: auto;
+	min-width: 2em;
+}
+
+.meetup-vote .input-group-addon {
+	width: auto;
+	min-width: 2.5em;
+}
+
+.meetup-vote-text {
+	padding: 5px 0;
+}
+
+.meetup-last-comments em {
+	color: #cccccc;
+	font-style: normal;
+}
+
+.meetup-footer-nav {
+	padding-bottom: 24px;
+}
+
+.meetup-footer-nav > li > a,
+.meetup-footer-nav > li > a:hover,
+.meetup-footer-nav > li > a:focus {
+	background: transparent;
+	padding-left: 0;
+	padding-right: 30px;
+}
+
+.meetup-footer-nav > li > a:hover,
+.meetup-footer-nav > li > a:focus {
+	text-decoration: underline;
+}
+
+.meetup-footer-nav > li.pull-right > a {
+	padding-left: 30px;
+	padding-right: 0;
+}
+
+@media (max-width: 767px) {
+	.meetup-pagination > li > a,
+	.meetup-pagination > li > span {
+		padding: 5px 8px; /* was: 5px 10px, but not looking good on iphone */
+		font-size: 15px;
+	}
+
+	.meetup-pagination > li:first-child > a,
+	.meetup-pagination > li:first-child > span {
+		border-bottom-left-radius: 3px;
+		border-top-left-radius: 3px;
+	}
+
+	.meetup-pagination > li:last-child > a,
+	.meetup-pagination > li:last-child > span {
+		border-top-right-radius: 3px;
+		border-bottom-right-radius: 3px;
+	}
+}
+
+@media (min-width: 768px) {
+	.meetup-body-guest {
+		border-top: 56px solid #f1f1f1;
+	}
+
+	.meetup-jumbotron {
+		padding-top: 24px;
+		padding-bottom: 24px;
+	}
+
+	.meetup-navbar-collapse {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.meetup-navbar-collapse .navbar-form.navbar-right {
+		padding-right: 0;
+	}
+
+	.meetup-navbar-brand {
+		display: none;
+	}
+
+	.meetup-post-thumbnail {
+		width: 96px;
+		height: 96px;
+	}
+}
+
+/* Fixes for android browser */
+
+.meetup-vote > span.input-group-addon {
+	height: auto !important;
+}
