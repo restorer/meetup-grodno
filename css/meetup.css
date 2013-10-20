@@ -21,8 +21,48 @@
 	margin-top: 7px;
 }
 
-.thumbnail > img {
+.thumbnail > a {
+	display: block;
+	text-decoration: none;
+}
+
+.thumbnail > img,
+.thumbnail > a > img {
+	display: block;
+	height: auto;
 	width: 100%;
+}
+
+.progress {
+	line-height: 24px;
+}
+
+.breadcrumb > .active > a {
+	color: #999999;
+}
+
+.dropdown-menu > li > span {
+	display: block;
+	padding: 3px 20px;
+	clear: both;
+	font-weight: normal;
+	line-height: 1.428571429;
+	color: #999999;
+	white-space: nowrap;
+}
+
+.dropdown-menu > .active > span {
+	text-decoration: none;
+	background-color: #d9edf7;
+	outline: 0;
+}
+
+.page-header {
+	margin-top: 0;
+}
+
+.page-header > h1 {
+	margin: 0;
 }
 
 /* Custom styles */
@@ -51,6 +91,15 @@
 	margin-top: 0;
 }
 
+.meetup-jumbotron-sm {
+	margin-bottom: 0;
+}
+
+.meetup-jumbotron-sm h1,
+.meetup-jumbotron-sm h2 {
+	margin: 0;
+}
+
 .meetup-block {
 	margin-bottom: 24px;
 }
@@ -73,8 +122,19 @@
 
 .meetup-aspect-2-1 {
 	display: block;
+	position: relative;
 	width: 100%;
 	padding-top: 50%;
+}
+
+.meetup-aspect-2-1 > span {
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -0.5em;
+	margin-left: -0.5em;
+	font-size: 64px;
 }
 
 .meetup-events .thumbnail {
@@ -118,9 +178,34 @@
 	border-radius: 4px;
 }
 
+.meetup-post-done {
+	background-color: #dff0d8;
+	border: 1px solid #d6e9c6;
+	border-radius: 4px;
+}
+
 .meetup-post-thumbnail {
 	width: 64px;
 	height: 64px;
+	line-height: 64px;
+	text-align: center;
+	font-size: 32px;
+	top: 0;
+}
+
+.meetup-post > a {
+	text-decoration: none;
+}
+
+.meetup-icon-thumbnail {
+	display: inline-block;
+	height: auto;
+	max-width: 100%;
+	background-color: #f9f9f9;
+	border: 1px solid #dddddd;
+	border-radius: 4px;
+	-webkit-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
 }
 
 .meetup-post-title {
@@ -137,6 +222,10 @@
 
 .meetup-post-title > .label span.glyphicon {
 	vertical-align: -2px;
+}
+
+.meetup-post .progress {
+	margin-bottom: 10px;
 }
 
 .meetup-vote {
@@ -156,6 +245,12 @@
 
 .meetup-vote-text {
 	padding: 5px 0;
+	overflow: hidden;
+}
+
+.meetup-vote-text > small {
+	display: block;
+	color: #999999;
 }
 
 .meetup-last-comments em {
@@ -185,6 +280,10 @@
 	padding-right: 0;
 }
 
+.meetup-navcrumb > li + li:before {
+	content: "\00b7\00a0";
+}
+
 @media (max-width: 767px) {
 	.meetup-pagination > li > a,
 	.meetup-pagination > li > span {
@@ -202,6 +301,10 @@
 	.meetup-pagination > li:last-child > span {
 		border-top-right-radius: 3px;
 		border-bottom-right-radius: 3px;
+	}
+
+	.meetup-control-sm {
+		margin-bottom: 15px;
 	}
 }
 
@@ -231,6 +334,8 @@
 	.meetup-post-thumbnail {
 		width: 96px;
 		height: 96px;
+		line-height: 96px;
+		font-size: 48px;
 	}
 }
 

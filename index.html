@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8" />
 	<!-- maximum-scale, minimum-scale and user-scalable=no fixes bug with position:fixed on android browser -->
-	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=no;" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
 	<link rel="shortcut icon" href="favicon.ico" />
@@ -16,151 +16,478 @@
 		<script src="js/respond.js"></script>
 	<![endif]-->
 </head>
-<body class="meetup-body-guest">
-	<div class="navbar navbar-default navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-right">
-				<p class="navbar-text meetup-navbar-before-icons">
-					<a href="#">Вход/Регистрация</a>
-				</p>
-				<p class="meetup-navbar-icons">
-					<a href="#"><img src="img/social/facebook.png" alt="Facebook" /></a>
-					<a href="#"><img src="img/social/google.png" alt="Google" /></a>
-					<a href="#"><img src="img/social/twitter.png" alt="Twitter" /></a>
-					<a href="#"><img src="img/social/vkontakte.png" alt="Вконтакте" /></a>
-					<a href="#"><img src="img/social/mailru.png" alt="Mail.ru" /></a>
-					<a href="#"><img src="img/social/yandex.png" alt="Яндекс" /></a>
-					<a href="#"><img src="img/social/odnoklassniki.png" alt="Одноклассники" /></a>
-				</p>
+<body>
+	<script type="text/template" id="mockup-layout">
+		<% if (config.guest == 'yes') { %>
+			<div class="navbar navbar-default navbar-fixed-top">
+				<div class="container">
+					<div class="navbar-right">
+						<p class="navbar-text meetup-navbar-before-icons">
+							<a href="<%= link('guest', 'no') %>">Вход/Регистрация</a>
+						</p>
+						<p class="meetup-navbar-icons">
+							<a href="<%= link('guest', 'no') %>"><img src="img/social/facebook.png" alt="Facebook" /></a>
+							<a href="<%= link('guest', 'no') %>"><img src="img/social/google.png" alt="Google" /></a>
+							<a href="<%= link('guest', 'no') %>"><img src="img/social/twitter.png" alt="Twitter" /></a>
+							<a href="<%= link('guest', 'no') %>"><img src="img/social/vkontakte.png" alt="Вконтакте" /></a>
+							<a href="<%= link('guest', 'no') %>"><img src="img/social/mailru.png" alt="Mail.ru" /></a>
+							<a href="<%= link('guest', 'no') %>"><img src="img/social/yandex.png" alt="Яндекс" /></a>
+							<a href="<%= link('guest', 'no') %>"><img src="img/social/odnoklassniki.png" alt="Одноклассники" /></a>
+						</p>
+					</div>
+				</div>
+			</div>
+		<% } %>
+
+		<div class="jumbotron meetup-jumbotron">
+			<div class="container">
+				<h1>Митапы в Гродно</h1>
+				<p><a href="<%= link('page', 'about') %>">Что такое meetup?</a>
+				<% if (config.alert == 'yes') { %>
+					<div class="alert alert-danger meetup-block-last">
+						MeetupLab 10.10.2013 перенесён на 12.10.2013
+					</div>
+				<% } %>
 			</div>
 		</div>
-	</div>
 
-	<div class="jumbotron meetup-jumbotron">
-		<div class="container">
-			<h1>Meetup in Grodno</h1>
-			<p><a href="#">Что такое meetup?</a>
-			<div class="alert alert-danger meetup-block-last">
-				MeetupLab 11.11 перенесён на 12.12
+		<div class="navbar navbar-inverse navbar-static-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<span class="navbar-brand meetup-navbar-brand">Меню</span>
+				</div>
+				<div class="collapse navbar-collapse meetup-navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li class="<%= config.page == '' ? 'active' : '' %>"><a href="<%= link('page', '') %>">Главная</a></li>
+						<li class="<%= config.page == 'topics' ? 'active' : '' %>"><a href="<%= link('page', 'topics') %>">Темы</a></li>
+						<li class="<%= config.page == 'ideas' ? 'active' : '' %>"><a href="<%= link('page', 'ideas') %>">Идеи</a></li>
+						<li class="<%= config.page == 'contact' ? 'active' : '' %>"><a
+							href="<%= link('page', 'contact') %>"
+						>Предложить событие</a></li>
+					</ul>
+					<form class="navbar-form navbar-right" role="search">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Поиск" />
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="navbar navbar-inverse navbar-static-top" role="navigation">
 		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<span class="navbar-brand meetup-navbar-brand">Меню</span>
+			<% if (config.page == '') { %>
+				<div class="row meetup-events">
+
+					<div class="col-sm-6 col-lg-3">
+						<div class="thumbnail">
+							<a href="<%= link('page', 'event-single') %>"><img src="img/uploads/aspect-2-1/IMG_0836.jpg" alt="" /></a>
+							<div class="caption">
+								<h4>MeetupLab 12.10.2013</h4>
+								<p class="meetup-events-description">Поговорим про игры, мобильные техноголии, android и стартапы.</p>
+								<p>
+									<button class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> Пойду</button>
+									<a href="<%= link('page', 'event-single') %>" class="btn btn-link">Подробней</a>
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<% if (config.events > 1) { %>
+						<div class="col-sm-6 col-lg-3">
+							<div class="thumbnail">
+								<a href="<%= link('page', 'event-single') %>"><div class="visible-sm visible-md visible-lg meetup-aspect-2-1">
+									<span class="glyphicon glyphicon-map-marker text-danger"></span>
+								</div></a>
+								<div class="caption">
+									<h4>MeetupLab 19.10.2013</h4>
+									<p class="meetup-events-description">Поговорим про Android, iOS и другие мобильные системы.</p>
+									<p>
+										<button class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> Пойду</button>
+										<a href="<%= link('page', 'event-single') %>" class="btn btn-link">Подробней</a>
+									</p>
+								</div>
+							</div>
+						</div>
+					<% } %>
+
+					<% if (config.events > 2) { %>
+						<div class="col-sm-6 col-lg-3">
+							<div class="thumbnail">
+								<a href="<%= link('page', 'event-single') %>"><img src="img/uploads/aspect-2-1/IMG_0834.jpg" alt="" /></a>
+								<div class="caption">
+									<h4>MeetupLab 26.10.2013</h4>
+									<p class="meetup-events-description">GameDev.</p>
+									<p>
+										<button class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> Пойду</button>
+										<a href="<%= link('page', 'event-single') %>" class="btn btn-link">Подробней</a>
+									</p>
+								</div>
+							</div>
+						</div>
+					<% } %>
+
+					<div class="col-sm-6 col-lg-3">
+						<div class="thumbnail">
+							<div class="visible-sm visible-md visible-lg meetup-aspect-2-1"></div>
+							<div class="caption">
+								<p class="meetup-events-link"><a href="<%= link('page', 'events') %>">Все события</a></p>
+								<p class="visible-sm visible-md visible-lg meetup-events-description"></p>
+								<p class="visible-sm visible-md visible-lg meetup-events-buttons"></p>
+							</div>
+						</div>
+					</div>
+
+					<% if (config.events < 3) { %>
+						<div class="col-sm-6 col-lg-3">
+							<div class="thumbnail">
+								<div class="visible-sm visible-md visible-lg meetup-aspect-2-1"></div>
+								<div class="caption">
+									<p class="meetup-events-link"><a href="<%= link('page', 'reports') %>">Отчёты</a></p>
+									<p class="visible-sm visible-md visible-lg meetup-events-description"></p>
+									<p class="visible-sm visible-md visible-lg meetup-events-buttons"></p>
+								</div>
+							</div>
+						</div>
+					<% } %>
+
+					<% if (config.events < 2) { %>
+						<div class="col-sm-6 col-lg-3">
+							<div class="thumbnail">
+								<div class="visible-sm visible-md visible-lg meetup-aspect-2-1"></div>
+								<div class="caption">
+									<p class="meetup-events-link"><a href="<%= link('page', 'archive') %>">Архив событий</a></p>
+									<p class="visible-sm visible-md visible-lg meetup-events-description"></p>
+									<p class="visible-sm visible-md visible-lg meetup-events-buttons"></p>
+								</div>
+							</div>
+						</div>
+					<% } %>
+				</div>
+			<% } %>
+
+			<div class="row">
+				<div class="col-md-8 meetup-block">
+					<%= content %>
+				</div>
+
+				<div class="col-md-4 meetup-block">
+					<% if (config.page != '' && config.page != 'events') { %>
+						<div class="panel panel-danger">
+							<div class="panel-heading">
+								<h3 class="panel-title">События</h3>
+							</div>
+							<div class="panel-body">
+								<div class="meetup-block-sm">
+									<div class="meetup-vote">
+										<button class="btn btn-sm btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> Пойду</button>
+									</div>
+									<div class="meetup-vote-text">
+										<a href="<%= link('page', 'event-single') %>">MeetupLab 12.10.2013</a>
+									</div>
+								</div>
+								<div class="meetup-block-sm">
+									<div class="meetup-vote">
+										<button class="btn btn-sm btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> Пойду</button>
+									</div>
+									<div class="meetup-vote-text">
+										<a href="<%= link('page', 'event-single') %>">MeetupLab 19.10.2013</a>
+									</div>
+								</div>
+								<div class="meetup-block-sm">
+									<div class="meetup-vote">
+										<button class="btn btn-sm btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> Пойду</button>
+									</div>
+									<div class="meetup-vote-text">
+										<a href="<%= link('page', 'event-single') %>">MeetupLab 26.10.2013</a>
+									</div>
+								</div>
+								<a href="<%= link('page', 'events') %>">Все события</a>
+							</div>
+						</div>
+					<% } %>
+
+					<% if (config.page != 'topics') { %>
+						<div class="panel panel-danger">
+							<div class="panel-heading">
+								<h3 class="panel-title">Горячие темы</h3>
+							</div>
+							<div class="panel-body">
+								<div class="meetup-block-sm">
+									<div class="input-group input-group-sm meetup-vote">
+										<button class="btn btn-success form-control" type="button">+</button>
+										<span class="input-group-addon">7</span>
+									</div>
+									<div class="meetup-vote-text">3D принтеры</div>
+								</div>
+								<div class="meetup-block-sm">
+									<div class="input-group input-group-sm meetup-vote">
+										<button class="btn btn-success form-control" type="button">+</button>
+										<span class="input-group-addon">5</span>
+									</div>
+									<div class="meetup-vote-text">Коворкинг</div>
+								</div>
+								<div class="meetup-block-sm">
+									<div class="input-group input-group-sm meetup-vote">
+										<button class="btn btn-success form-control" type="button">+</button>
+										<span class="input-group-addon">3</span>
+									</div>
+									<div class="meetup-vote-text">Стартапы</div>
+								</div>
+								<div class="meetup-block-sm">
+									<div class="input-group input-group-sm meetup-vote">
+										<button class="btn btn-danger form-control" type="button">-</button>
+										<span class="input-group-addon">2</span>
+									</div>
+									<div class="meetup-vote-text">Разработка игр</div>
+								</div>
+								<div class="meetup-block-sm">
+									<div class="input-group input-group-sm meetup-vote">
+										<button class="btn btn-success form-control" type="button">+</button>
+										<span class="input-group-addon">1</span>
+									</div>
+									<div class="meetup-vote-text">Adruino</div>
+								</div>
+								<a href="<%= link('page', 'topics') %>">Все темы</a>
+							</div>
+						</div>
+					<% } %>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Последние комментарии</h3>
+						</div>
+						<div class="panel-body meetup-last-comments">
+							<p>
+								<strong>source</strong> <em>|</em>
+								<a href="<%= link('page', 'event-single') %>">MeetupLab 07.09.2013: Report</a><br />
+								я шнурочек свой нашел под скатертью — он там прятался с прошлой митапки
+							</p>
+							<p>
+								<strong>source</strong> <em>|</em> <a href="<%= link('page', 'event-single') %>">MeetupLab 28.09.2013</a><br />
+								у меня тоже не получается — дела
+							</p>
+							<p>
+								<strong>restorer</strong> <em>|</em> <a href="<%= link('page', 'idea-single') %>">SEO для сайта</a><br />
+								У меня и то и то на 7й позиции (естественно смотрю с инкогнито), причём ссылка на архив моих записей.
+								<a href="<%= link('page', 'idea-single') %>">&hellip;</a>
+							</p>
+							<p>
+								<strong>restorer</strong> <em>|</em> <a href="<%= link('page', 'event-single') %>">MeetupLab 28.09.2013</a><br />
+								Я не смогу быть, но уверен что и без меня будет сверх-интересный митап с жаркой дискуссией.
+								<a href="<%= link('page', 'event-single') %>">&hellip;</a>
+							</p>
+							<p>
+								<strong>source</strong> <em>|</em> <a href="<%= link('page', 'idea-single') %>">SEO для сайта</a><br />
+								«митап гродно» — уже на первой.
+								Самый простой вариант — внутренняя оптимизация. Минимально можно
+								<a href="<%= link('page', 'idea-single') %>">&hellip;</a>
+							</p>
+						</div>
+					</div>
+
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">Мы в соцсетях</h3>
+						</div>
+						<div class="panel-body">
+							<a href="javascript:;"><img src="img/social/rss.png" alt="RSS" /></a>
+							<a href="javascript:;"><img src="img/social/facebook.png" alt="Facebook" /></a>
+							<a href="javascript:;"><img src="img/social/google.png" alt="Google" /></a>
+							<a href="javascript:;"><img src="img/social/twitter.png" alt="Twitter" /></a>
+							<a href="javascript:;"><img src="img/social/vkontakte.png" alt="Вконтакте" /></a>
+						</div>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Прочее</h3>
+						</div>
+						<div class="panel-body">
+							<% if (config.guest == 'yes') { %>
+								<div><a href="<%= link('guest', 'no') %>">Войти / Зарегистрироваться</a></div>
+							<% } else { %>
+								<div><a href="<%= link('guest', 'yes') %>">Выйти</a></div>
+							<% } %>
+							<% if (config.alert == 'yes') { %>
+								<div><a href="<%= link('alert', 'no') %>">Спрятать alert</a></div>
+							<% } else { %>
+								<div><a href="<%= link('alert', 'yes') %>">Показать alert</a></div>
+							<% } %>
+							<% if (config.events != '3') { %>
+								<div><a href="<%= link('events', '3') %>">Три события в шапке</a></div>
+							<% } %>
+							<% if (config.events != '2') { %>
+								<div><a href="<%= link('events', '2') %>">Два события в шапке</a></div>
+							<% } %>
+							<% if (config.events != '1') { %>
+								<div><a href="<%= link('events', '1') %>">Одно событие в шапке</a></div>
+							<% } %>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="collapse navbar-collapse meetup-navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Главная</a></li>
-					<li><a href="#">Темы</a></li>
-					<li><a href="#">Идеи</a></li>
-					<li><a href="#">Предложить событие</a></li>
+
+			<div class="row">
+				<div class="col-lg-12">
+					<ul class="nav nav-pills meetup-footer-nav">
+						<li class="pull-right"><a href="#top"><span class="glyphicon glyphicon-chevron-up meetup-icon-left"></span>Наверх</a></li>
+						<li><a href="<%= link('page', 'contact') %>">Связаться с нами</a></li>
+						<li><a href="<%= link('page', 'about') %>">Что такое meetup?</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</script>
+	<script type="text/template" id="mockup-index">
+		<ol class="breadcrumb meetup-navcrumb">
+			<% if (config.page == '') { %>
+				<li class="active">Всё</li>
+			<% } else { %>
+				<li><a href="<%= link('page', '') %>">Всё</a></li>
+			<% } %>
+			<% if (config.page == 'events') { %>
+				<li class="active">События</li>
+			<% } else { %>
+				<li><a href="<%= link('page', 'events') %>">События</a></li>
+			<% } %>
+			<% if (config.page == 'reports') { %>
+				<li class="active">Отчёты</li>
+			<% } else { %>
+				<li><a href="<%= link('page', 'reports') %>">Отчёты</a></li>
+			<% } %>
+			<% if (~['ideas', 'archive', 'articles'].indexOf(config.page)) { %>
+				<li class="dropdown active"><a
+				href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"><%= {
+					'ideas': 'Другое (идеи)',
+					'archive': 'Другое (архив)',
+					'articles': 'Другое (статьи)'
+				}[config.page] %><b class="caret meetup-icon-right"></b></a>
+			<% } else { %>
+				<li class="dropdown"><a
+				href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">Другое<b class="caret meetup-icon-right"></b></a>
+			<% } %>
+				<ul class="dropdown-menu">
+					<% if (config.page == 'ideas') { %>
+						<li class="active"><span>Идеи</span></li>
+					<% } else { %>
+						<li><a href="<%= link('page', 'ideas') %>">Идеи</a></li>
+					<% } %>
+					<% if (config.page == 'archive') { %>
+						<li class="active"><span>Архив</span></li>
+					<% } else { %>
+						<li><a href="<%= link('page', 'archive') %>">Архив</a></li>
+					<% } %>
+					<% if (config.page == 'articles') { %>
+						<li class="active"><span>Статьи</span></li>
+					<% } else { %>
+						<li><a href="<%= link('page', 'articles') %>">Статьи</a></li>
+					<% } %>
 				</ul>
-				<form class="navbar-form navbar-right" role="search">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Поиск" />
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+			</li>
+		</ol>
 
-	<div class="container">
-		<div class="row meetup-events">
-			<div class="col-sm-6 col-lg-3">
-				<div class="thumbnail">
-					<img src="img/uploads/aspect-2-1/IMG_0834.jpg" alt="" />
-					<div class="caption">
-						<h4>MeetupLab 12.10.2013</h4>
-						<p class="meetup-events-description">Поговорим про игры, мобильные техноголии, android и стартапы.</p>
-						<p>
-							<a href="#" class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> Пойду</a>
-							<a href="#" class="btn btn-link">Подробней</a>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-6 col-lg-3">
-				<div class="thumbnail">
-					<img src="img/uploads/aspect-2-1/IMG_0836.jpg" alt="" />
-					<div class="caption">
-						<h4>MeetupLab 12.12</h4>
-						<p class="meetup-events-description">Поговорим про Android, iOS и другие мобильные системы</p>
-						<p>
-							<a href="#" class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> Пойду</a>
-							<a href="#" class="btn btn-link">Подробней</a>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-6 col-lg-3">
-				<div class="thumbnail">
-					<img src="img/uploads/aspect-2-1/IMG_0834.jpg" alt="" />
-					<div class="caption">
-						<h4>MeetupLab 13.13</h4>
-						<p class="meetup-events-description">GameDev</p>
-						<p>
-							<a href="#" class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> Пойду</a>
-							<a href="#" class="btn btn-link">Подробней</a>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-6 col-lg-3">
-				<div class="thumbnail">
-					<div class="visible-sm visible-md visible-lg meetup-aspect-2-1"></div>
-					<div class="caption">
-						<p class="meetup-events-link"><a href="#">Все события</a></p>
-						<p class="visible-sm visible-md visible-lg meetup-events-description"></p>
-						<p class="visible-sm visible-md visible-lg meetup-events-buttons"></p>
-					</div>
-				</div>
-			</div>
-		</div>
+		<% var ids = {
+			'': [1, 2, 3, 4, 5, 6, 7],
+			'events': [4, 3, 1], // sorted backward
+			'reports': [7],
+			'ideas': [2, 6],
+			'archive': [5],
+			'articles': []
+		}[config.page] %>
 
-		<div class="row">
-			<div class="col-md-8 meetup-block">
-				<ol class="breadcrumb">
-					<li class="active">Всё</li>
-					<li><a href="#">События</a></li>
-					<li><a href="#">Отчёты</a></li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Другое<b class="caret meetup-icon-right"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">Архив</a></li>
-							<li><a href="#">Статьи</a></li>
-							<li><a href="#">Идеи</a></li>
-						</ul>
-					</li>
-				</ol>
-
+		<% for (var i = 0; i < ids.length; i++) { var id = ids[i]; %>
+			<% if (id == 1) { %>
 				<div class="media meetup-post meetup-post-upcoming">
-					<a class="pull-left" href="#">
+					<a class="pull-left" href="<%= link('page', 'event-single') %>">
+						<img class="media-object meetup-post-thumbnail img-thumbnail" src="img/uploads/aspect-1-1/IMG_0836.jpg" alt="" />
+					</a>
+					<div class="media-body">
+						<h4 class="media-heading meetup-post-title">
+							<span class="label label-danger"><span class="glyphicon glyphicon-map-marker"></span></span>
+							<a href="<%= link('page', 'event-single') %>">MeetupLab 26.10.2013</a>
+						</h4>
+						GameDev.
+					</div>
+				</div>
+			<% } %>
+
+			<% if (id == 2) { %>
+				<div class="media meetup-post">
+					<a class="pull-left" href="<%= link('page', 'idea-single') %>">
+						<span class="media-object meetup-post-thumbnail
+						meetup-icon-thumbnail glyphicon glyphicon-star-empty text-warning"></span>
+					</a>
+					<div class="media-body">
+						<h4 class="media-heading meetup-post-title">
+							<span class="label label-warning"><span class="glyphicon glyphicon-star-empty"></span></span>
+							<a href="<%= link('page', 'idea-single') %>">SEO для сайта</a>
+						</h4>
+						<div class="progress progress-striped">
+							<div
+								class="progress-bar progress-bar-warning"
+								role="progressbar"
+								aria-valuenow="40"
+								aria-valuemin="0"
+								aria-valuemax="100"
+								style="width:40%;"
+							>40%</div>
+						</div>
+						Этот сайт печально находится в поисковиках.
+						«митапы в гродно» — 6я.
+						«митап гродно» — вообще нет на 1й странице.
+						По каким ключевикам надо чтоб находился этот сайт?
+						Что надо поменять на сайте для улучшения находимости?
+						На каких сторонних разместить посты и ссылки?
+					</div>
+				</div>
+			<% } %>
+
+			<% if (id == 3) { %>
+				<div class="media meetup-post meetup-post-upcoming">
+					<a class="pull-left" href="<%= link('page', 'event-single') %>">
+						<span class="media-object meetup-post-thumbnail
+						meetup-icon-thumbnail glyphicon glyphicon-map-marker text-danger"></span>
+					</a>
+					<div class="media-body">
+						<h4 class="media-heading meetup-post-title">
+							<span class="label label-danger"><span class="glyphicon glyphicon-map-marker"></span></span>
+							<a href="<%= link('page', 'event-single') %>">MeetupLab 19.10.2013</a>
+						</h4>
+						Поговорим про Android, iOS и другие мобильные системы.
+					</div>
+				</div>
+			<% } %>
+
+			<% if (id == 4) { %>
+				<div class="media meetup-post meetup-post-upcoming">
+					<a class="pull-left" href="<%= link('page', 'event-single') %>">
 						<img class="media-object meetup-post-thumbnail img-thumbnail" src="img/uploads/aspect-1-1/IMG_0834.jpg" alt="" />
 					</a>
 					<div class="media-body">
 						<h4 class="media-heading meetup-post-title">
 							<span class="label label-danger"><span class="glyphicon glyphicon-map-marker"></span></span>
-							<a href="#">MeetupLab 12.10.2013</a>
+							<a href="<%= link('page', 'event-single') %>">MeetupLab 12.10.2013</a>
 						</h4>
 						Поговорим про игры, мобильные техноголии, android и стартапы.
 					</div>
 				</div>
+			<% } %>
+
+			<% if (id == 5) { %>
 				<div class="media meetup-post">
-					<a class="pull-left" href="#">
-						<img class="media-object meetup-post-thumbnail img-thumbnail" src="img/uploads/aspect-1-1/IMG_0836.jpg" alt="" />
+					<a class="pull-left" href="<%= link('page', 'archive-single') %>">
+						<span class="media-object meetup-post-thumbnail
+						meetup-icon-thumbnail glyphicon glyphicon-map-marker text-info"></span>
 					</a>
 					<div class="media-body">
 						<h4 class="media-heading meetup-post-title">
 							<span class="label label-info"><span class="glyphicon glyphicon-map-marker"></span></span>
-							<a href="#">MeetupLab 05.10.2013</a>
+							<a href="<%= link('page', 'archive-single') %>">MeetupLab 05.10.2013</a>
 						</h4>
 						Будем общаться на темы:
 						1) Митап-движения в Гродно
@@ -170,153 +497,240 @@
 						5) Будущие мероприятия
 					</div>
 				</div>
+			<% } %>
+
+			<% if (id == 6) { %>
+				<div class="media meetup-post meetup-post-done">
+					<a class="pull-left" href="<%= link('page', 'idea-single') %>">
+						<span class="media-object meetup-post-thumbnail
+						meetup-icon-thumbnail glyphicon glyphicon-star text-warning"></span>
+					</a>
+					<div class="media-body">
+						<h4 class="media-heading meetup-post-title">
+							<span class="label label-warning"><span class="glyphicon glyphicon-star"></span></span>
+							<a href="<%= link('page', 'idea-single') %>">Новый дизайн для сайта про митапы</a>
+						</h4>
+						<div class="progress progress-striped">
+							<div
+								class="progress-bar progress-bar-success"
+								role="progressbar"
+								aria-valuenow="100"
+								aria-valuemin="0"
+								aria-valuemax="100"
+								style="width:100%;"
+							>100%</div>
+						</div>
+						Нужно сделать новый дизайн для сайта про митапы.
+					</div>
+				</div>
+			<% } %>
+
+			<% if (id == 7) { %>
 				<div class="media meetup-post">
-					<a class="pull-left" href="#">
-						<img class="media-object meetup-post-thumbnail img-thumbnail" src="img/uploads/aspect-1-1/IMG_0834.jpg" alt="" />
+					<a class="pull-left" href="<%= link('page', 'report-single') %>">
+						<span class="media-object meetup-post-thumbnail
+						meetup-icon-thumbnail glyphicon glyphicon-bullhorn text-success"></span>
 					</a>
 					<div class="media-body">
 						<h4 class="media-heading meetup-post-title">
 							<span class="label label-success"><span class="glyphicon glyphicon-bullhorn"></span></span>
-							<a href="#">MeetupLab 21.09.2013: Game-report</a>
+							<a href="<%= link('page', 'report-single') %>">MeetupLab 21.09.2013: Game-report. And this is really long long long title</a>
 						</h4>
-						На этот раз в «Нестерке» собралось 5 участников, чтобы поговорить о разработке игр и попробовать сделать игру прямо на месте.
-						Cсылки на скачку презентации и материала ищите в конце отчёта. 1) Посмотрели <a href="#">&hellip;</a>
+						На этот раз в «Нестерке» собралось 5 участников,
+						чтобы поговорить о разработке игр и попробовать сделать игру прямо на месте.
+						Cсылки на скачку презентации и материала ищите в конце отчёта. 1) Посмотрели
+						<a href="<%= link('page', 'report-single') %>">&hellip;</a>
 					</div>
 				</div>
-				<div class="media meetup-post">
-					<a class="pull-left" href="#">
-						<img class="media-object meetup-post-thumbnail img-thumbnail" src="img/uploads/aspect-1-1/IMG_0836.jpg" alt="" />
-					</a>
-					<div class="media-body">
-						<h4 class="media-heading meetup-post-title">
-							<span class="label label-warning"><span class="glyphicon glyphicon-star-empty"></span></span>
-							<a href="#">SEO для сайта</a>
-						</h4>
-						Этот сайт печально находится в поисковиках.
-						«митапы в гродно» — 6я.
-						«митап гродно» — вообще нет на 1й странице.
-						По каким ключевикам надо чтоб находился этот сайт?
-						Что надо поменять на сайте для улучшения находимости?
-						На каких сторонних разместить посты и ссылки?
-					</div>
-				</div>
+			<% } %>
+		<% } %>
 
-				<div class="text-center">
-					<ul class="pagination meetup-pagination">
-						<li><a href="#">&laquo;</a></li>
-						<li><a href="#">10</a></li>
-						<li><a href="#">11</a></li>
-						<li><a href="#">12</a></li>
-						<li class="active"><a href="#">13 <span class="sr-only">(current)</span></a></li>
-						<li><a href="#">14</a></li>
-						<li><a href="#">15</a></li>
-						<li><a href="#">16</a></li>
-						<li><a href="#">&raquo;</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-md-4 meetup-block">
-				<div class="panel panel-danger">
-					<div class="panel-heading">
-						<h3 class="panel-title">Горячие темы</h3>
-					</div>
-					<div class="panel-body">
-						<div class="meetup-block-sm">
-							<div class="input-group input-group-sm meetup-vote">
-								<button class="btn btn-success form-control" type="button">+</button>
-								<span class="input-group-addon">89</span>
-							</div>
-							<div class="meetup-vote-text">3D принтеры</div>
-						</div>
-						<div class="meetup-block-sm">
-							<div class="input-group input-group-sm meetup-vote">
-								<button class="btn btn-success form-control" type="button">+</button>
-								<span class="input-group-addon">2</span>
-							</div>
-							<div class="meetup-vote-text">Коворкинг</div>
-						</div>
-						<div class="meetup-block-sm">
-							<div class="input-group input-group-sm meetup-vote">
-								<button class="btn btn-success form-control" type="button">+</button>
-								<span class="input-group-addon">2</span>
-							</div>
-							<div class="meetup-vote-text">Стартапы</div>
-						</div>
-						<div class="meetup-block-sm">
-							<div class="input-group input-group-sm meetup-vote">
-								<button class="btn btn-danger form-control" type="button">-</button>
-								<span class="input-group-addon">2</span>
-							</div>
-							<div class="meetup-vote-text">Разработка игр</div>
-						</div>
-						<div class="meetup-block-sm">
-							<div class="input-group input-group-sm meetup-vote">
-								<button class="btn btn-success form-control" type="button">+</button>
-								<span class="input-group-addon">1</span>
-							</div>
-							<div class="meetup-vote-text">Adruino</div>
-						</div>
-						<a href="#">Все темы</a>
-					</div>
-				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">Последние комментарии</h3>
-					</div>
-					<div class="panel-body meetup-last-comments">
-						<p>
-							<strong>source</strong> <em>|</em> <a href="#">MeetupLab 07.09.2013: Report</a><br />
-							я шнурочек свой нашел под скатертью — он там прятался с прошлой митапки
-						</p>
-						<p>
-							<strong>source</strong> <em>|</em> <a href="#">MeetupLab 28.09.2013</a><br />
-							у меня тоже не получается — дела
-						</p>
-						<p>
-							<strong>restorer</strong> <em>|</em> <a href="#">SEO для сайта</a><br />
-							У меня и то и то на 7й позиции (естественно смотрю с инкогнито), причём ссылка на архив моих записей.
-							<a href="#">&hellip;</a>
-						</p>
-						<p>
-							<strong>restorer</strong> <em>|</em> <a href="#">MeetupLab 28.09.2013</a><br />
-							Я не смогу быть, но уверен что и без меня будет сверх-интересный митап с жаркой дискуссией.
-							<a href="#">&hellip;</a>
-						</p>
-						<p>
-							<strong>source</strong> <em>|</em> <a href="#">SEO для сайта</a><br />
-							«митап гродно» — уже на первой.
-							Самый простой вариант — внутренняя оптимизация. Минимально можно
-							<a href="#">&hellip;</a>
-						</p>
-					</div>
-				</div>
-				<div class="panel panel-info">
-					<div class="panel-heading">
-						<h3 class="panel-title">Мы в соцсетях</h3>
-					</div>
-					<div class="panel-body">
-						<a href="#"><img src="img/social/rss.png" alt="RSS" /></a>
-						<a href="#"><img src="img/social/facebook.png" alt="Facebook" /></a>
-						<a href="#"><img src="img/social/google.png" alt="Google" /></a>
-						<a href="#"><img src="img/social/twitter.png" alt="Twitter" /></a>
-						<a href="#"><img src="img/social/vkontakte.png" alt="Вконтакте" /></a>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-lg-12">
-				<ul class="nav nav-pills meetup-footer-nav">
-					<li class="pull-right"><a href="#top"><span class="glyphicon glyphicon-chevron-up meetup-icon-left"></span>Наверх</a></li>
-					<li><a href="#">Связаться с нами</a></li>
-					<li><a href="#">Что такое meetup?</a></li>
+		<% if (ids.length) { %>
+			<div class="text-center">
+				<ul class="pagination meetup-pagination">
+					<li><a href="javascript:;">&laquo;</a></li>
+					<li><a href="javascript:;">10</a></li>
+					<li><a href="javascript:;">11</a></li>
+					<li><a href="javascript:;">12</a></li>
+					<li class="active"><a href="javascript:;">13 <span class="sr-only">(current)</span></a></li>
+					<li><a href="javascript:;">14</a></li>
+					<li><a href="javascript:;">15</a></li>
+					<li><a href="javascript:;">16</a></li>
+					<li><a href="javascript:;">&raquo;</a></li>
 				</ul>
 			</div>
+		<% } else { %>
+			<div class="jumbotron meetup-jumbotron-sm">
+				<h2>
+					<span class="glyphicon glyphicon-remove-circle text-danger meetup-icon-left"></span>
+					Ничено не найдено
+				</h2>
+			</div>
+		<% } %>
+	</script>
+	<script type="text/template" id="mockup-topics">
+		<div class="page-header">
+			<h1>Тема следующего митапа</h1>
 		</div>
-	</div>
+		<p class="lead">Выбирается тема на MeetupLab 26.10.2013</p>
+		<div class="well">
+			<form class="row" role="form">
+				<div class="col-sm-8 meetup-control-sm">
+					<input class="form-control" type="text" placeholder="Свой вариант темы митапа" />
+				</div>
+				<div class="col-sm-4">
+					<button class="btn btn-block btn-primary">Добавьте новую</button>
+				</div>
+			</form>
+		</div>
+		<p class="lead">Или проголосуйте за уже добавленные</p>
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="meetup-block-sm">
+					<div class="input-group input-group-sm meetup-vote">
+						<button class="btn btn-success form-control" type="button">+</button>
+						<span class="input-group-addon">7</span>
+					</div>
+					<div class="meetup-vote-text">
+						3D принтеры
+						<small>restorer, source, oOLokiOo, djakpot, KArs, leonid_vazniuk, Boris Artur</small>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="meetup-block-sm">
+					<div class="input-group input-group-sm meetup-vote">
+						<button class="btn btn-success form-control" type="button">+</button>
+						<span class="input-group-addon">1</span>
+					</div>
+					<div class="meetup-vote-text">
+						Adruino
+						<small>KArs</small>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="meetup-block-sm">
+					<div class="input-group input-group-sm meetup-vote">
+						<button class="btn btn-success form-control" type="button">+</button>
+						<span class="input-group-addon">5</span>
+					</div>
+					<div class="meetup-vote-text">
+						Коворкинг
+						<small>source, oOLokiOo, restorer, djakpot, Boris Artur</small>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="meetup-block-sm">
+					<div class="input-group input-group-sm meetup-vote">
+						<button class="btn btn-success form-control" type="button">+</button>
+						<span class="input-group-addon">0</span>
+					</div>
+					<div class="meetup-vote-text">
+						Хакерспейс
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="meetup-block-sm">
+					<div class="input-group input-group-sm meetup-vote">
+						<button class="btn btn-success form-control" type="button">+</button>
+						<span class="input-group-addon">3</span>
+					</div>
+					<div class="meetup-vote-text">
+						Стартапы
+						<small>source, restorer, oOLokiOo</small>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="meetup-block-sm">
+					<div class="input-group input-group-sm meetup-vote">
+						<button class="btn btn-success form-control" type="button">+</button>
+						<span class="input-group-addon">0</span>
+					</div>
+					<div class="meetup-vote-text">
+						Papercraft
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="meetup-block-sm">
+					<div class="input-group input-group-sm meetup-vote">
+						<button class="btn btn-danger form-control" type="button">-</button>
+						<span class="input-group-addon">2</span>
+					</div>
+					<div class="meetup-vote-text">
+						Разработка игр
+						<small>oOLokiOo, restorer</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</script>
+	<script type="text/template" id="mockup-event-single">
+		Single event
+	</script>
+	<script type="text/template" id="mockup-idea-single">
+		Single idea
+	</script>
+	<script type="text/template" id="mockup-report-single">
+		Single report
+	</script>
+	<script type="text/template" id="mockup-archive-single">
+		Single archived event
+	</script>
+	<script type="text/template" id="mockup-about">
+		<div class="page-header">
+			<h1>Что такое meetup?</h1>
+		</div>
+		<p class="lead">
+			Коротко сущность митапа (Meetup) можно описать в четырех словах:
+			<strong>делай</strong>, <strong>учись</strong>, <strong>делись</strong>, <strong>меняй</strong>
+			(do, learn, share, change).
+		</p>
+		<p>
+			<strong>Делай что-нибудь</strong>&nbsp;&mdash; это значит, что нельзя сидеть на месте и ждать,
+			пока другой реализует интересную идею, родившуюся у тебя в голове. Какой бы сумасбродной ни была мысль&nbsp;&ndash; делись ею,
+			ищи единомышленников, думайте как реализовать ее, встречайтесь, организовывайте.
+			Самое главное&nbsp;&ndash; это понять, что ты не одинок и в любом случае найдутся люди, готовые тебя поддержать.
+		</p>
+		<p>
+			<strong>Учись чему-нибудь</strong>&nbsp;&mdash; мы все несовершенны хотя бы потому, что невозможно знать все.
+			Сейчас у тебя есть шанс стать чуточку лучше через общение с интересными людьми&nbsp;&ndash; носителями интересных идей.
+			Каждый человек уникален, каждый несет с собой ценный багаж из знаний и опыта.
+			Учись отдавать бескорыстно&nbsp;&ndash; и ты сможешь получить в тысячу раз больше!
+		</p>
+		<p>
+			<strong>Делись чем-нибудь</strong>&nbsp;&mdash; это неправда, что тебе нечем поделиться с миром.
+			Загляни внутрь себя и найди то, что может быть интересно хотя бы одному человеку на планете.
+			А это уже значит, что ты найдешь тысячи таких же.
+			Переступи через страх оказаться непонятым&nbsp;&ndash; и перед тобой откроются новые горизонты.
+		</p>
+		<p>
+			<strong>Меняй что-нибудь</strong>&nbsp;&mdash; когда твои идеи становятся достоянием десятков и сотен других,
+			они приобретают совершенно другую форму, превращаются из фантазий в реальные вещи, которые можно ощутить, потрогать, услышать.
+			Поэтому услышав от незнакомых людей отголоски своих мыслей, не удивляйся&nbsp;&ndash; ведь ты уже начал менять мир.
+		</p>
+		<p>
+			<small>Взято с <a href="http://meetup.by/about-meetup">http://meetup.by/about-meetup</a>.</small>
+		</p>
+	</script>
+	<script type="text/template" id="mockup-contact">
+		Contact
+	</script>
+	<div id="mockup-rendered"></div>
 
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.js"></script>
+	<script src="mockup-only/underscore.js"></script>
+	<script src="mockup-only/mockup.js"></script>
 </body>
 </html>
