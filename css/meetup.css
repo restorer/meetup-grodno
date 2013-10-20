@@ -306,6 +306,11 @@
 	.meetup-control-sm {
 		margin-bottom: 15px;
 	}
+
+	.meetup-navcrumb > .dropdown > .dropdown-menu {
+		right: 0;
+		left: auto;
+	}
 }
 
 @media (min-width: 768px) {
